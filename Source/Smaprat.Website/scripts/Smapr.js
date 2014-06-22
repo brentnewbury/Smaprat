@@ -173,68 +173,37 @@ $(function () {
     })
 })
 
-var smileyText = [
-    ':\\)',
-    ':-\\)',
-    ':D',
-    ':-D',
-    ':P',
-    ':-P',
-    ':\\(',
-    ':-\\(',
-    ':o',
-    ':\\\\',
-    ':-\\\\',
-    //':/', // Remove temporarily due to problems with matching {urlshceme}://
-    ':-/',
-    ':s',
-    ':-s',
-    ':S',
-    ':-S',
-    ';\\)',
-    ';-\\)',
-    '&lt;3',
-    ':\\|',
-    ':-\\|',
-    '\\^\\^',
-    '\\(happy\\)',
-    '\\(cool\\)',
-    '\\(devil\\)',
-    '\\(evil\\)',
-    '\\(angry\\)',
-
+var smilies = [
+    { text: ':\\)', icon: 'smile' },
+    { text: ':-\\)', icon: 'smile' },
+    { text: ':D', icon: 'happy' },
+    { text: ':-D', icon: 'happy' },
+    { text: ':P', icon: 'tongue' },
+    { text: ':-P', icon: 'tongue' },
+    { text: ':\\(', icon: 'sad' },
+    { text: ':-\\(', icon: 'sad' },
+    { text: ':o', icon: 'shocked' },
+    { text: ':\\\\', icon: 'wondering' },
+    { text: ':-\\\\', icon: 'wondering' },
+    //{ text: ':/', icon: 'wondering' }, // Remove temporarily due to problems with matching {urlshceme}://
+    { text: ':-/', icon: 'wondering' },
+    { text: ':s', icon: 'confused' },
+    { text: ':-s', icon: 'confused' },
+    { text: ':S', icon: 'confused' },
+    { text: ':-S', icon: 'confused' },
+    { text: ';\\)', icon: 'wink' },
+    { text: ';-\\)', icon: 'wink' },
+    { text: '&lt;3', icon: 'heart' },
+    { text: ':\\|', icon: 'neutral' },
+    { text: ':-\\|', icon: 'neutral' },
+    { text: '\\^\\^', icon: 'grin' },
+    { text: '\\(happy\\)', icon: 'grin' },
+    { text: '\\(cool\\)', icon: 'cool' },
+    { text: '\\(devil\\)', icon: 'evil' },
+    { text: '\\(evil\\)', icon: 'evil' },
+    { text: '\\(angry\\)', icon: 'angry' }
 ];
 
-var smileyIcon = [
-    'smile',
-    'smile',
-    'happy',
-    'happy',
-    'tongue',
-    'tongue',
-    'sad',
-    'sad',
-    'shocked',
-    'wondering',
-    'wondering',
-    //'wondering', // Remove temporarily due to problems with matching {urlshceme}://
-    'wondering',
-    'confused',
-    'confused',
-    'confused',
-    'confused',
-    'wink',
-    'wink',
-    'heart',
-    'neutral',
-    'neutral',
-    'grin',
-    'grin',
-    'cool',
-    'evil',
-    'evil',
-    'angry'
-];
 
 function parse(message, link, smilify) {
     if (link == null)
@@ -248,9 +217,9 @@ function parse(message, link, smilify) {
         message = autolinker.link(message);
 
     if (smilify === true) {
-        for (i = 0; i < smileyText.length; i++) {
-            var regex = new RegExp(smileyText[i], 'gi');
-            message = message.replace(regex, '<span class=\'icon smiley ' + smileyIcon[i] + '\'></span>');
+        for (i = 0; i < smilies.length; i++) {
+            var regex = new RegExp(smilies[i].text, 'gi');
+            message = message.replace(regex, '<span class=\'icon smiley ' + smilies[i].icon + '\'></span>');
         }
     }
     return message;
