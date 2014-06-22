@@ -1,0 +1,29 @@
+﻿@{
+    Page.Title = "Smapr.at - Simple chit-chat";
+}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,300,400" rel="stylesheet" type="text/css">
+    <link href="@FingerPrintUrl.Create("/css/Site.css")" rel="stylesheet" type="text/css" media="screen">
+    <title>@Page.Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="description" content="Småprat, it's Swedish for chit-chat." />
+    <meta name="keywords" content="chat,messaging,im,Smaprat,Småprat,SignalR" />
+    <meta name="author" content="Brent Newbury" />
+    <meta name="copyright" content="Brent Newbury" />
+    <link rel="canonical" href="https://smapr.at/" />
+    @HtmlHelper.CreateAnalyticsJs()
+</head>
+<body>
+    <header>
+        <h1>Smapr.at</h1><small>Simple chit-chat</small>
+    </header>
+    <main>
+        <div id="content">
+            <h2>Oops, something went wrong.</h2>
+            <p>Please try again.</p>
+        </div>
+    </main>
+</body>
+</html>

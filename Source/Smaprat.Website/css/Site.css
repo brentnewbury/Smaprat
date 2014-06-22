@@ -1,0 +1,405 @@
+﻿*
+{
+    margin: 0;
+}
+
+@font-face
+{
+    font-weight: normal;
+    font-style: normal;
+    font-family: 'Icons';
+    src: url('../../fonts/Icons.eot?tqq8g0');
+    src: url('../../fonts/Icons.eot?#iefixtqq8g0') format('embedded-opentype'), url('../../fonts/Icons.woff?tqq8g0') format('woff'), url('../../fonts/Icons.ttf?tqq8g0') format('truetype'), url('../../fonts/Icons.svg?tqq8g0#Icons') format('svg');
+}
+
+@media (max-width: 35em)
+{
+    *
+    {
+        font-size: .95em;
+    }
+
+    header > small, #greeting-text
+    {
+        display: none !important;
+    }
+}
+
+@-ms-viewport
+{
+    width: device-width;
+}
+
+html, body
+{
+    height: 100%;
+    color: #414141;
+    text-align: left;
+    font-weight: 300;
+    font-family: 'Open Sans', 'Segoe UI Light', 'Segoe UI', Tahoma, Arial, Verdana, sans-serif;
+}
+
+a
+{
+    color: #376a37;
+}
+
+h1, h2
+{
+    color: #448944;
+    font-weight: 300;
+}
+
+h1
+{
+    display: inline-block;
+    margin-right: .2em;
+    font-size: 3.5em;
+    line-height: 1.1em;
+}
+
+header
+{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 990;
+    padding: 1em 1em .7em 1em;
+    background-color: #fff;
+    vertical-align: bottom;
+}
+
+    header > small
+    {
+        font-style: italic;
+    }
+
+#greeting
+{
+    position: absolute;
+    right: 1em;
+    bottom: .5em;
+    display: none;
+    padding: .25em;
+    color: #949494;
+    font-size: 1.2em;
+    opacity: 0;
+    cursor: pointer;
+}
+
+    #greeting:hover
+    {
+        background-color: #edfeed;
+    }
+
+    #greeting > span
+    {
+        display: inline-block;
+        line-height: 1.2em;
+    }
+
+    #greeting-text
+    {
+        margin-right: .2em;
+    }
+
+    #greeting > #name-placeholder
+    {
+        color: #397d39;
+        font-size: 1.5em;
+        max-width: 10em;
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        margin: auto 0 -.21em 0;
+    }
+
+#user-details
+{
+    position: fixed;
+    top: 5.5em;
+    right: 0;
+    left: 0;
+    z-index: 980;
+    margin-top: -3em;
+    padding: 4em 1em 1em 1em;
+    background-color: #fff;
+}
+
+    #user-details > input
+    {
+        z-index: 999;
+    }
+
+footer
+{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1em;
+    background-color: #fff;
+}
+
+ul.form-arrangement
+{
+    padding: 0;
+    border: none;
+    list-style: none;
+}
+
+ul.form-arrangement > li > div.error
+{
+    margin-bottom: 1em;
+}
+
+.textbox-wrapper
+{
+    overflow: hidden;
+    padding-right: 1em;
+}
+
+input[type='text']
+{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-bottom: 2px;
+    padding-left: .5em;
+    width: 100%;
+    height: 3em;
+    border: 1px solid #444;
+    border-width: 1px !important;
+    color: #333;
+    font-weight: 300;
+    font-size: 1.1em;
+    font-family: 'Open Sans', 'Segoe UI Light', 'Segoe UI', Tahoma, Arial, Verdana, sans-serif;
+}
+
+button#send
+{
+    float: right;
+    height: 3em;
+    font-weight: 300;
+    font-size: 1.1em;
+    font-family: 'Open Sans', 'Segoe UI Light', 'Segoe UI', Tahoma, Arial, Verdana, sans-serif;
+}
+
+#content {
+    margin: 7em 1em 1em 1em;
+}
+
+#messages
+{
+    position: fixed;
+    top: 6em;
+    right: 1em;
+    bottom: 5.5em;
+    left: 1em;
+    overflow-y: scroll;
+}
+
+    #messages > p
+    {
+        display: block;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        margin: .25em .1em .25em 0;
+        padding: .25em;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+        font-size: 1.1em;
+        line-height: 1.8em;
+    }
+
+        #messages > p > span.name
+        {
+            color: #448944;
+            font-weight: 400;
+        }
+
+        #messages > p.self
+        {
+            background-color: #edfeed;
+        }
+
+        #messages > p.notification
+        {
+            font-style: italic;
+            font-size: .8em;
+            line-height: 2.5em;
+        }
+
+.mask
+{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 900;
+    background: #fff;
+    opacity: .80;
+}
+
+.caret
+{
+    display: inline-block;
+    margin: 0 0 .5em .2em;
+    width: 0;
+    height: 0;
+    border-top: 4px solid #949494;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    vertical-align: middle;
+}
+
+.error
+{
+    border: 1px solid #a94442 !important;
+    background-color: #f2dede !important;
+    color: #a94442 !important;
+    -moz-transition: all .5s;
+    -o-transition: all .5s;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+}
+
+div.error
+{
+    padding: .5em;
+    font-weight: 400;
+}
+
+.icon
+{
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-transform: none;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-family: 'Icons';
+}
+
+.smiley
+{
+    color: #448944;
+    font-size: 1.2em;
+    line-height: 1;
+    vertical-align: sub;
+}
+
+.menu:before
+{
+    content: "\e600";
+}
+
+.away:before
+{
+    content: "\e601";
+}
+
+.user:before
+{
+    content: "\e604";
+}
+
+.group:before
+{
+    content: "\e605";
+}
+
+.locked:before
+{
+    content: "\e606";
+}
+
+.heart:before
+{
+    content: "\e617";
+}
+
+.happy:before
+{
+    content: "\e608";
+}
+
+.smile:before
+{
+    content: "\e609";
+}
+
+.tongue:before
+{
+    content: "\e60a";
+}
+
+.sad:before
+{
+    content: "\e60b";
+}
+
+.wink:before
+{
+    content: "\e60c";
+}
+
+.grin:before
+{
+    content: "\e60d";
+}
+
+.cool:before
+{
+    content: "\e60e";
+}
+
+.angry:before
+{
+    content: "\e60f";
+}
+
+.evil:before
+{
+    content: "\e610";
+}
+
+.shocked:before
+{
+    content: "\e611";
+}
+
+.confused:before
+{
+    content: "\e612";
+}
+
+.neutral:before
+{
+    content: "\e613";
+}
+
+.wondering:before
+{
+    content: "\e614";
+}
+
+.warning:before
+{
+    content: "\e615";
+}
+
+.information:before
+{
+    content: "\e616";
+}
+
+.cancel:before
+{
+    content: "\e618";
+}
