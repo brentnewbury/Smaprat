@@ -201,7 +201,8 @@ var smilies = [
     { text: '\\(cool\\)', icon: 'cool' },
     { text: '\\(devil\\)', icon: 'evil' },
     { text: '\\(evil\\)', icon: 'evil' },
-    { text: '\\(angry\\)', icon: 'angry' }
+    { text: '\\(angry\\)', icon: 'angry' },
+    { text: ':@', icon: 'angry' }
 ];
 
 
