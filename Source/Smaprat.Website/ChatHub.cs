@@ -81,11 +81,11 @@ namespace Smaprat.Website
         }
 
         /// <summary>
-        /// Initialises the users connection information and notifies other users that the current user has joined the chat.
+        /// Initializes the users connection information and notifies other users that the current user has joined the chat.
         /// </summary>
         /// <param name="name">The name of the current user.</param>
         /// <remarks>Handles usecases where a new user has joined, and where an existing user has changed their name.</remarks>
-        public void InitialiseUser(string name)
+        public void InitializeUser(string name)
         {
             SimulateDelay();
 
