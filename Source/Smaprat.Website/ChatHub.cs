@@ -85,7 +85,7 @@ namespace Smaprat.Website
         /// </summary>
         /// <param name="name">The name of the current user.</param>
         /// <remarks>Handles usecases where a new user has joined, and where an existing user has changed their name.</remarks>
-        public void Join(string name)
+        public void InitialiseUser(string name)
         {
             SimulateDelay();
 
@@ -99,7 +99,7 @@ namespace Smaprat.Website
             name = TruncateName(name);
 
             Debug.Assert(_userRepository != null);
-            IUser exisitngUserDetails = _userRepository.GetUserByConnectionId(Context.ConnectionId);
+            IUser exisitngUserDetails = _userRepository.GetUserByConnectionId(Context.ConnectionId); // Must retrieve existing details before we overwrite with new details
             IUser newUserDetails = _userRepository.Create(name, Context.ConnectionId);
 
             try

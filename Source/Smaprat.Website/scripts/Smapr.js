@@ -95,7 +95,7 @@ $(function () {
             if (newName.length > 50)
                 return;
             viewModel.settingName(true);
-            chat.server.join(newName).done(function () {
+            chat.server.initialiseUser(newName).done(function () {
                 viewModel.joined(true);
                 viewModel.settingName(false);
                 viewModel.hideUserDetails();
