@@ -159,7 +159,7 @@ $(function () {
         if (existingName.length > 50)
             return;
         viewModel.settingName(true);
-        chat.server.join(existingName).done(function () {
+        chat.server.initializeUser(existingName).done(function () {
             viewModel.settingName(false);
             viewModel.joined(true);
             $('#message').focus();
