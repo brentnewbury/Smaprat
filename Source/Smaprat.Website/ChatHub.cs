@@ -22,6 +22,11 @@ namespace Smaprat.Website
         /// </summary>
         public const int MaxCharactersPerMessage = 500;
 
+        /// <summary>
+        /// The name of the default group users will join. Currently the only group available.
+        /// </summary>
+        public const string DefaultGroupName = "Lobby";
+
         private IUserRepository _userRepository = null;
 
         private static readonly NameValidator _nameValidator = new NameValidator();
@@ -51,7 +56,7 @@ namespace Smaprat.Website
             IUser from = GetConnectedUser();
             Debug.Assert(from != null);
 
-            Clients.Others.message(from.Name, message);
+            Clients.OthersInGroup(DefaultGroupName).message(from.Name, message);
 
             Trace.TraceInformation("{0} sent a message", from.Name);
         }
@@ -113,13 +118,14 @@ namespace Smaprat.Website
 
             if (exisitngUserDetails == null)
             {
-                Clients.Others.notification(name + " has joined the conversation, say Hi");
+                Groups.Add(Context.ConnectionId, DefaultGroupName);
+                Clients.OthersInGroup(DefaultGroupName).notification(name + " has joined the conversation, say Hi");
 
                 Trace.TraceInformation("{0} changed to {1}", Context.ConnectionId, name);
             }
             else if ((exisitngUserDetails != null) && (exisitngUserDetails.Name != name))
             {
-                Clients.Others.notification(exisitngUserDetails.Name + " changed their name to " + newUserDetails.Name);
+                Clients.OthersInGroup(DefaultGroupName).notification(exisitngUserDetails.Name + " changed their name to " + newUserDetails.Name);
                 Trace.TraceInformation("{0} changed to {1}", exisitngUserDetails.Name, name);
             }
         }
@@ -147,7 +153,7 @@ namespace Smaprat.Website
             {
                 string name = user.Name;
                 _userRepository.RemoveUser(user);
-                Clients.Others.notification(name + " has left the conversation");
+                Clients.OthersInGroup(DefaultGroupName).notification(name + " has left the conversation");
                 Trace.TraceInformation("{0} disconnected", name);
             }
             else
