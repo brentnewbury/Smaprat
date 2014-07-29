@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.SignalR;
 using Smaprat.Data;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -121,11 +122,15 @@ namespace Smaprat.Website
                 Groups.Add(Context.ConnectionId, DefaultGroupName);
                 Clients.OthersInGroup(DefaultGroupName).notification(name + " has joined the conversation, say Hi");
 
+                string greeting = CreateGreeting();
+                Clients.Caller.notification(greeting);
+
                 Trace.TraceInformation("{0} changed to {1}", Context.ConnectionId, name);
             }
             else if ((exisitngUserDetails != null) && (exisitngUserDetails.Name != name))
             {
                 Clients.OthersInGroup(DefaultGroupName).notification(exisitngUserDetails.Name + " changed their name to " + newUserDetails.Name);
+
                 Trace.TraceInformation("{0} changed to {1}", exisitngUserDetails.Name, name);
             }
         }
@@ -190,6 +195,23 @@ namespace Smaprat.Website
             }
 
             return user;
+        }
+
+        /// <summary>
+        /// Returns a greeting intended for a newly connected user.
+        /// </summary>
+        /// <returns>Returns a greeting intended for a newly connected user.</returns>
+        private string CreateGreeting()
+        {
+            List<IUser> users = _userRepository.GetUsers().Where(u => u.ConnectionId != Context.ConnectionId).ToList(); // TODO: Won't scale
+            if (users.Count == 0)
+                return "Hi, nobody else is here yet";
+
+            if (users.Count == 1)
+                return "Say Hi to " + users[0].Name;
+
+            // TODO: Hard coded English grammar rules
+            return "Say Hi to " + String.Join(", ", users.Take(users.Count - 1).Select(u => u.Name)) + ", and " + users[users.Count - 1].Name;
         }
 
         /// <summary>
