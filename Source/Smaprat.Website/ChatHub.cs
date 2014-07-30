@@ -57,7 +57,7 @@ namespace Smaprat.Website
             IUser from = GetConnectedUser();
             Debug.Assert(from != null);
 
-            Clients.OthersInGroup(DefaultGroupName).message(from.Name, message);
+            Clients.OthersInGroup(from.GroupName).message(from.Name, message);
 
             Trace.TraceInformation("{0} sent a message", from.Name);
         }
@@ -93,10 +93,26 @@ namespace Smaprat.Website
         /// <remarks>Handles usecases where a new user has joined, and where an existing user has changed their name.</remarks>
         public void InitializeUser(string name)
         {
+            InitializeUser(name, DefaultGroupName);
+        }
+
+        /// <summary>
+        /// Initializes the users connection information and notifies other users that the current user has joined the chat.
+        /// </summary>
+        /// <param name="name">The name of the current user.</param>
+        /// <param name="groupName">The name of the group to join.</param>
+        /// <remarks>Handles usecases where a new user has joined, and where an existing user has changed their name.</remarks>
+        public void InitializeUser(string name, string groupName)
+        {
             SimulateDelay();
 
             if (String.IsNullOrWhiteSpace(name))
                 return;
+
+            if (String.IsNullOrWhiteSpace(groupName))
+                groupName = DefaultGroupName;
+
+            groupName = groupName.ToLowerInvariant();
 
             Debug.Assert(_nameValidator != null);
             if (!_nameValidator.IsValid(name))
@@ -106,7 +122,7 @@ namespace Smaprat.Website
 
             Debug.Assert(_userRepository != null);
             IUser exisitngUserDetails = _userRepository.GetUserByConnectionId(Context.ConnectionId); // Must retrieve existing details before we overwrite with new details
-            IUser newUserDetails = _userRepository.Create(name, Context.ConnectionId);
+            IUser newUserDetails = _userRepository.Create(name, Context.ConnectionId, groupName);
 
             try
             {
@@ -119,19 +135,28 @@ namespace Smaprat.Website
 
             if (exisitngUserDetails == null)
             {
-                Groups.Add(Context.ConnectionId, DefaultGroupName);
-                Clients.OthersInGroup(DefaultGroupName).notification(name + " has joined the conversation, say Hi");
+                Groups.Add(Context.ConnectionId, groupName);
+                Clients.OthersInGroup(groupName).notification(name + " has joined the conversation, say Hi");
 
-                string greeting = CreateGreeting();
+                string greeting = CreateGreeting(newUserDetails);
                 Clients.Caller.notification(greeting);
 
                 Trace.TraceInformation("{0} changed to {1}", Context.ConnectionId, name);
             }
-            else if ((exisitngUserDetails != null) && (exisitngUserDetails.Name != name))
+            else
             {
-                Clients.OthersInGroup(DefaultGroupName).notification(exisitngUserDetails.Name + " changed their name to " + newUserDetails.Name);
+                if (exisitngUserDetails.GroupName != groupName)
+                {
+                    Groups.Remove(Context.ConnectionId, exisitngUserDetails.GroupName);
+                    Groups.Add(Context.ConnectionId, groupName);
+                }
 
-                Trace.TraceInformation("{0} changed to {1}", exisitngUserDetails.Name, name);
+                if (exisitngUserDetails.Name != name)
+                {
+                    Clients.OthersInGroup(groupName).notification(exisitngUserDetails.Name + " changed their name to " + newUserDetails.Name);
+
+                    Trace.TraceInformation("{0} changed to {1}", exisitngUserDetails.Name, name);
+                }
             }
         }
 
@@ -158,7 +183,7 @@ namespace Smaprat.Website
             {
                 string name = user.Name;
                 _userRepository.RemoveUser(user);
-                Clients.OthersInGroup(DefaultGroupName).notification(name + " has left the conversation");
+                Clients.OthersInGroup(user.GroupName).notification(name + " has left the conversation");
                 Trace.TraceInformation("{0} disconnected", name);
             }
             else
@@ -200,10 +225,14 @@ namespace Smaprat.Website
         /// <summary>
         /// Returns a greeting intended for a newly connected user.
         /// </summary>
+        /// <param name="user">The user to create the greeting for.</param>
         /// <returns>Returns a greeting intended for a newly connected user.</returns>
-        private string CreateGreeting()
+        private string CreateGreeting(IUser user)
         {
-            List<IUser> users = _userRepository.GetUsers().Where(u => u.ConnectionId != Context.ConnectionId).ToList(); // TODO: Won't scale
+            if (user == null)
+                return String.Empty;
+
+            List<IUser> users = _userRepository.GetUsersInGroup(user.GroupName).Where(u => u.ConnectionId != Context.ConnectionId).ToList(); // TODO: Won't scale
             if (users.Count == 0)
                 return "Hi, nobody else is here yet";
 

@@ -18,6 +18,11 @@ namespace Smaprat.Data.Models
         public string ConnectionId { get; private set; }
 
         /// <summary>
+        /// Gets the name of the group the user has joined.
+        /// </summary>
+        public string GroupName { get; private set; }
+
+        /// <summary>
         /// Initializes a new instance of <see cref="Smaprat.Data.ConnectedUser"/>.
         /// </summary>
         private ConnectedUser()
@@ -29,15 +34,19 @@ namespace Smaprat.Data.Models
         /// </summary>
         /// <param name="name">Name of the user</param>
         /// <param name="connectionId">A <see cref="System.String"/> uniquely identifying the connection.</param>
-        public ConnectedUser(string name, string connectionId)
+        /// <param name="groupName">The name of the group the user has joined.</param>
+        public ConnectedUser(string name, string connectionId, string groupName)
         {
             if (String.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException("name");
             if (String.IsNullOrWhiteSpace(connectionId))
                 throw new ArgumentNullException("connectionId");
+            if (String.IsNullOrWhiteSpace(groupName))
+                throw new ArgumentNullException("groupName");
 
             Name = name;
             ConnectionId = connectionId;
+            GroupName = groupName;
         }
     }
 }

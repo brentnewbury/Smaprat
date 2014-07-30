@@ -14,5 +14,10 @@
         /// Gets a <see cref="System.String"/> uniquely identifying the connection.
         /// </summary>
         string ConnectionId { get; }
+
+        /// <summary>
+        /// Gets the name of the group the user has joined.
+        /// </summary>
+        string GroupName { get; }
     }
 }

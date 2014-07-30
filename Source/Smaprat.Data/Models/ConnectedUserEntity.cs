@@ -34,6 +34,15 @@ namespace Smaprat.Data.Models
         }
 
         /// <summary>
+        /// Gets the name of the group the user has joined.
+        /// </summary>
+        public string GroupName
+        {
+            get;
+            set; 
+        }
+
+        /// <summary>
         /// Initializes a new instance of <see cref="Smaprat.Data.ConnectedUserEntity"/>.
         /// </summary>
         public ConnectedUserEntity()
@@ -45,16 +54,20 @@ namespace Smaprat.Data.Models
         /// </summary>
         /// <param name="name">Name of the user</param>
         /// <param name="connectionId">A <see cref="System.String"/> uniquely identifying the connection.</param>
-        public ConnectedUserEntity(string name, string connectionId)
+        /// <param name="groupName">The name of the group the user has joined.</param>
+        public ConnectedUserEntity(string name, string connectionId, string groupName)
         {
             if (String.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException("name");
             if (String.IsNullOrWhiteSpace(connectionId))
                 throw new ArgumentNullException("connectionId");
+            if (String.IsNullOrWhiteSpace(groupName))
+                throw new ArgumentNullException("groupName");
 
             PartitionKey = name.ToLower(); // Normalized version of the name for case-insensitive searches (at time of writing, this doesn't exist in Table Storage)
             RowKey = connectionId;
             Name = name;
+            GroupName = groupName;
         }
     }
 }

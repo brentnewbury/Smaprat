@@ -27,10 +27,11 @@ namespace Smaprat.Data.Repositories
         /// </summary>
         /// <param name="name">The name of the user to create.</param>
         /// <param name="connectionId">A <see cref="System.String"/> uniquely identifying a user connection.</param>
+        /// <param name="groupName">The name of the group the user has joined.</param>
         /// <returns>Returns a new <see cref="IUser"/> instance.</returns>
-        public IUser Create(string name, string connectionId)
+        public IUser Create(string name, string connectionId, string groupName)
         {
-            return new ConnectedUser(name, connectionId);
+            return new ConnectedUser(name, connectionId, groupName);
         }
 
         /// <summary>
@@ -119,14 +120,15 @@ namespace Smaprat.Data.Repositories
         }
 
         /// <summary>
-        /// Retrieves a collection of <see cref="IUser"/> instances currently connected.
+        /// Retrieves a collection of <see cref="IUser"/> instances currently in the specified group.
         /// </summary>
-        /// <returns>A collection of <see cref="IUser"/> instances currently connected.</returns>
-        public IEnumerable<IUser> GetUsers()
+        /// <param name="groupName">The name of the group.</param>
+        /// <returns>An collection of <see cref="IUser"/> instances currently in the specified group.</returns>
+        public IEnumerable<IUser> GetUsersInGroup(string groupName)
         {
             lock (_users)
             {
-                return _users.Values.ToList();
+                return _users.Values.Where(u => u.GroupName == groupName).ToList();
             }
         }
     }

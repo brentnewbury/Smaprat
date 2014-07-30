@@ -52,6 +52,7 @@ $(function () {
         joined: ko.observable(false),
         sendingMessage: ko.observable(false),
         settingName: ko.observable(false),
+        groupName: ko.observable(window.location.hash),
 
         // Add message to chat
         addMessage: function (from, message, type) {
@@ -95,7 +96,7 @@ $(function () {
             if (newName.length > 50)
                 return;
             viewModel.settingName(true);
-            chat.server.initializeUser(newName).done(function () {
+            chat.server.initializeUser(newName, this.groupName()).done(function () {
                 viewModel.joined(true);
                 viewModel.settingName(false);
                 viewModel.hideUserDetails();
@@ -159,7 +160,7 @@ $(function () {
         if (existingName.length > 50)
             return;
         viewModel.settingName(true);
-        chat.server.initializeUser(existingName).done(function () {
+        chat.server.initializeUser(existingName, viewModel.groupName()).done(function () {
             viewModel.settingName(false);
             viewModel.joined(true);
             $('#message').focus();
@@ -169,7 +170,7 @@ $(function () {
             viewModel.showUserDetails();
             $('#name').select();
             viewModel.nameError(e);
-        });
+    });
     })
 })
 

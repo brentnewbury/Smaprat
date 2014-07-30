@@ -11,8 +11,9 @@ namespace Smaprat.Data
         /// </summary>
         /// <param name="name">The name of the user to create.</param>
         /// <param name="connectionId">A <see cref="System.String"/> uniquely identifying a user connection.</param>
+        /// <param name="groupName">The name of the group the user has joined.</param>
         /// <returns>Returns a new <see cref="IUser"/> instance.</returns>
-        IUser Create(string name, string connectionId);
+        IUser Create(string name, string connectionId, string groupName);
 
         /// <summary>
         /// Retrieves an <see cref="IUser"/> instance identified by the connection identifier.
@@ -44,9 +45,10 @@ namespace Smaprat.Data
         void RemoveUser(IUser user);
 
         /// <summary>
-        /// Retrieves a collection of <see cref="IUser"/> instances currently connected.
+        /// Retrieves a collection of <see cref="IUser"/> instances currently in the specified group.
         /// </summary>
-        /// <returns>An collection of <see cref="IUser"/> instances currently connected.</returns>
-        IEnumerable<IUser> GetUsers();
+        /// <param name="groupName">The name of the group.</param>
+        /// <returns>An collection of <see cref="IUser"/> instances currently in the specified group.</returns>
+        IEnumerable<IUser> GetUsersInGroup(string groupName);
     }
 }
