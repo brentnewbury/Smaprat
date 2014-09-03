@@ -128,8 +128,8 @@
     <Content Include="scripts\jquery.signalR-2.0.3.js" />
     <Content Include="scripts\jquery.signalR-2.0.3.min.js" />
     <Content Include="scripts\Autolinker.min.js" />
-    <Content Include="scripts\knockout-3.1.0.debug.js" />
-    <Content Include="scripts\knockout-3.1.0.js" />
+    <Content Include="scripts\knockout-3.2.0.debug.js" />
+    <Content Include="scripts\knockout-3.2.0.js" />
     <Content Include="scripts\Smapr.js" />
     <Content Include="Sitemap.xml" />
   </ItemGroup>

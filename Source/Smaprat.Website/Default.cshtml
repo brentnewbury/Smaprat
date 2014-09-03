@@ -22,7 +22,7 @@
     </header>
     <main>
         <div id="user-details">
-            <input type="text" id="name" placeholder="What's your name?" maxlength="50" title="Type your name" data-bind="value: name, valueUpdate:'afterkeydown', executeOnEnter: setName, event: { focusout: hideUserDetails }, disable: settingName" />
+            <input type="text" id="name" placeholder="What's your name?" maxlength="50" title="Type your name" data-bind="textInput: name, executeOnEnter: setName, event: { focusout: hideUserDetails }, disable: settingName" />
             <div data-bind="text: nameError, visible: nameError, css: { error: nameError }"></div>
         </div>
         <div class="mask"></div>
@@ -37,14 +37,14 @@
             </li>
             <li>
                 <button type="submit" id="send" disabled data-bind="click: sendMessage, enable: joined, disable: sendingMessage">Send</button>
-                <div class="textbox-wrapper"><input type="text" id="message" maxlength="500" placeholder="Type a message" title="Type a message" data-bind="value: message, valueUpdate: 'afterkeydown', executeOnEnter: sendMessage, enable: joined, disable: sendingMessage" spellcheck="true" /></div>
+                <div class="textbox-wrapper"><input type="text" id="message" maxlength="500" placeholder="Type a message" title="Type a message" data-bind="textInput: message, executeOnEnter: sendMessage, enable: joined, disable: sendingMessage" spellcheck="true" /></div>
             </li>
         </ul>
     </footer>
 
     <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.1.min.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.0.3.min.js"></script>
-    <script src="//ajax.aspnetcdn.com/ajax/knockout/knockout-3.1.0.js"></script>
+    <script src="~/scripts/knockout-3.2.0.js"></script>
     <script src="~/scripts/Autolinker.min.js"></script>
     <script src="signalr/hubs"></script>
     <script src="~/scripts/Smapr.js"></script>
