@@ -4,8 +4,15 @@ using System.Web;
 using System.Web.Caching;
 using System.Web.Hosting;
 
-public static class FingerPrintUrl
+/* 
+ * Adapted from technique developed by Mads Kristensen
+ * http://madskristensen.net/post/cache-busting-in-aspnet
+ */
+
+public class FingerPrintUrl
 {
+    private const string CdnUrl = "//az678787.vo.msecnd.net/cdn";
+
     public static string Create(string url)
     {
         if (String.IsNullOrWhiteSpace(url))
@@ -13,18 +20,17 @@ public static class FingerPrintUrl
 
         if (HttpRuntime.Cache[url] == null)
         {
-            string relative = VirtualPathUtility.ToAbsolute("~" + url);
-            string absolute = HostingEnvironment.MapPath(relative);
+            string abolutePath = VirtualPathUtility.ToAbsolute("~" + url);
+            string physicalPath = HostingEnvironment.MapPath(abolutePath);
 
-            if (!File.Exists(absolute))
-                throw new FileNotFoundException("File not found.", absolute);
+            if (!File.Exists(physicalPath))
+                return url;
 
-            DateTime date = File.GetLastWriteTime(absolute);
-            int index = relative.LastIndexOf('/');
+            DateTime date = File.GetLastWriteTime(physicalPath);
 
-            string result = relative.Insert(index, "/f-" + date.Ticks);
+            string result = CdnUrl + url + "?v=" + date.Ticks;
 
-            HttpRuntime.Cache.Insert(url, result, new CacheDependency(absolute));
+            HttpRuntime.Cache.Insert(url, result, new CacheDependency(physicalPath));
         }
 
         return HttpRuntime.Cache[url] as string;
