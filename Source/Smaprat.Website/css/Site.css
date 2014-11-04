@@ -8,8 +8,8 @@
     font-weight: normal;
     font-style: normal;
     font-family: 'Icons';
-    src: url('../../fonts/Icons.eot?tqq8g0');
-    src: url('../../fonts/Icons.eot?#iefixtqq8g0') format('embedded-opentype'), url('../../fonts/Icons.woff?tqq8g0') format('woff'), url('../../fonts/Icons.ttf?tqq8g0') format('truetype'), url('../../fonts/Icons.svg?tqq8g0#Icons') format('svg');
+    src: url('../fonts/Icons.eot?tqq8gb');
+    src: url('../fonts/Icons.eot?#iefixtqq8gb') format('embedded-opentype'), url('../fonts/Icons.woff?tqq8gb') format('woff'), url('../fonts/Icons.ttf?tqq8gb') format('truetype'), url('../fonts/Icons.svg?tqq8gb#Icons') format('svg');
 }
 
 @media (max-width: 35em)
