@@ -1,7 +1,7 @@
 Smaprat
 =======
 
-A simple, anonymous, SignalR chat webapp.
+A simple chat webapp built mostly as a learning exercise.
 
 What does Smaprat mean?
 -----------------------
