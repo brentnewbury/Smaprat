@@ -15,7 +15,7 @@ namespace Smaprat.Data
         /// Name of the setting which contains the connection string to Azure Table Storage.
         /// </summary>
         /// <remarks>If blank, in-memory storage will be used instead.</remarks>
-        private const string TableStorageConnectionStringSettingName = "StorageConnectionString";
+        private const string TableStorageConnectionStringSettingName = "site:StorageConnectionString";
 
         private static volatile IUserRepository _userRepositoryInstance;
         private static object syncRoot = new object();

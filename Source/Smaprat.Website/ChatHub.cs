@@ -174,8 +174,9 @@ namespace Smaprat.Website
         /// <summary>
         /// Called when a client disconnects from the hub.
         /// </summary>
+        /// <param name="stopCalled"><see langword="true" /> when the connection has been closed gracefully, <see lagword="false"/> otherwise.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task" />.</returns>
-        public override Task OnDisconnected()
+        public override Task OnDisconnected(bool stopCalled)
         {
             Debug.Assert(_userRepository != null);
             IUser user = _userRepository.GetUserByConnectionId(Context.ConnectionId);
@@ -191,7 +192,7 @@ namespace Smaprat.Website
                 Trace.TraceInformation("{0} disconnected", Context.ConnectionId);
             }
 
-            return base.OnDisconnected();
+            return base.OnDisconnected(stopCalled);
         }
 
         /// <summary>
