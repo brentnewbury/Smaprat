@@ -65,7 +65,7 @@ namespace Smaprat.Data.Repositories
             var query = new TableQuery<ConnectedUserEntity>()
                 .Where(
                     TableQuery.GenerateFilterCondition(
-                        "PartitionKey", QueryComparisons.Equal, connectionId));
+                        "RowKey", QueryComparisons.Equal, connectionId));
 
             return _table.ExecuteQuery(query).FirstOrDefault();
         }
@@ -138,7 +138,7 @@ namespace Smaprat.Data.Repositories
             if (String.IsNullOrWhiteSpace(user.ConnectionId))
                 throw new ArgumentException("Connection identifier cannot be empty.");
 
-            ConnectedUserEntity existingUser = (ConnectedUserEntity)GetUserByConnectionId(user.ConnectionId);
+            ConnectedUserEntity existingUser = user as ConnectedUserEntity;//(ConnectedUserEntity)GetUserByConnectionId(user.ConnectionId);
             if (existingUser != null)
                 _table.Execute(TableOperation.Delete(existingUser));
         }
