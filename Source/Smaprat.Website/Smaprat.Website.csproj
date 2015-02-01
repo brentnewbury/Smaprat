@@ -125,7 +125,6 @@
     <Content Include="fonts\Icons.ttf" />
     <Content Include="fonts\Icons.woff" />
     <Content Include="Error.cshtml" />
-    <None Include="Properties\PublishProfiles\smaprat.pubxml" />
     <None Include="scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="scripts\jquery-2.1.1.js" />
     <Content Include="scripts\jquery-2.1.1.min.js" />
